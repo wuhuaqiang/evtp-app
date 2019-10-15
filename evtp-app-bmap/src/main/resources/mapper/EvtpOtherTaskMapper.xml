@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhdl.dao.EvtpOtherTaskDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hhdl.model.EvtpOtherTask">
+        <id column="id" property="id" />
+        <result column="point" property="point" />
+        <result column="time" property="time" />
+        <result column="sort" property="sort" />
+        <result column="state" property="state" />
+        <result column="ower_id" property="owerId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, point, time, sort, state, ower_id AS owerId
+    </sql>
+
+</mapper>

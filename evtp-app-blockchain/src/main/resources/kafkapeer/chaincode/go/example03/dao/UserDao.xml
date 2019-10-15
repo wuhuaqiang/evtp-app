@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://raw.githubusercontent.com/zhuxiujia/GoMybatis/master/mybatis-3-mapper.dtd">
+<mapper>
+
+    <!--<cache eviction="LRU" type="" />-->
+
+    <resultMap id="userResultMap" tables="user">
+        <id property="id" column="id" langType="int64"/>
+        <result property="username" column="username" langType="string"/>
+        <result property="password" column="password" langType="string"/>
+    </resultMap>
+
+    <insert id="insert">
+        INSERT INTO
+        user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != nil">username,</if>
+            <if test="password != nil">password,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="username != nil">#{username},</if>
+            <if test="password != nil">#{password},</if>
+        </trim>
+    </insert>
+
+    <select id="selectById" resultMap="userResultMap">
+        SELECT
+        *
+        FROM user
+        WHERE
+        id=#{id}
+    </select>
+</mapper>

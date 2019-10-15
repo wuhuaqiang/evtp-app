@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhdl.dao.TPowerHistoryDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hhdl.model.TPowerHistory">
+        <id column="id" property="id"/>
+        <result column="ower_id" property="owerId"/>
+        <result column="ev_id" property="evId"/>
+        <result column="power" property="power"/>
+        <result column="time" property="time"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        ,
+        ower_id
+        AS
+        owerId,
+        ev_id
+        AS
+        evId,
+        power,
+        time,
+        remark
+    </sql>
+
+</mapper>

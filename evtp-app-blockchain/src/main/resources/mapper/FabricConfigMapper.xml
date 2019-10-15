@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hhdl.evtp.dao.FabricConfigMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="FabricConfigModelResultMap" type="com.hhdl.evtp.model.FabricConfigModel">
+        <id column="row_id" property="row_id"/>
+        <result column="league_id" property="league_id"/>
+        <result column="org_name" property="org_name"/>
+        <result column="user_name" property="user_name"/>
+        <result column="cryptoconfig_path" property="cryptoconfig_path"/>
+        <result column="channelartifacts_path" property="channelartifacts_path"/>
+        <result column="org_mspid" property="org_mspid"/>
+        <result column="org_domain" property="org_domain"/>
+        <result column="orderer_domain" property="orderer_domain"/>
+        <result column="channel_name" property="channel_name"/>
+        <result column="chaincode_name" property="chaincode_name"/>
+        <result column="chaincode_source" property="chaincode_source"/>
+        <result column="chaincode_path" property="chaincode_path"/>
+        <result column="chaincode_policy" property="chaincode_policy"/>
+        <result column="chaincode_version" property="chaincode_version"/>
+        <result column="proposal_waittime" property="proposal_waittime"/>
+        <result column="invoke_waittime" property="invoke_waittime"/>
+        <result column="is_tls" property="is_tls"/>
+        <result column="is_catls" property="is_catls"/>
+        <result column="is_delete" property="is_delete"/>
+        <result column="ca_location" property="ca_location"/>
+        <result column="ca_name" property="ca_name"/>
+    </resultMap>
+    <!-- 通用查询映射结果 -->
+    <resultMap id="FabricConfigOrdererModelResultMap" type="com.hhdl.evtp.model.FabricConfigOrdererModel">
+        <id column="row_id" property="row_id" />
+        <result column="orderer_name" property="orderer_name" />
+        <result column="orderer_location" property="orderer_location" />
+        <result column="config_id" property="config_id" />
+        <result column="is_delete" property="is_delete" />
+    </resultMap>
+    <!-- 通用查询映射结果 -->
+    <resultMap id="FabricConfigPeerModelResultMap" type="com.hhdl.evtp.model.FabricConfigPeerModel">
+        <id column="row_id" property="row_id" />
+        <result column="peer_name" property="peer_name" />
+        <result column="peer_eventhubname" property="peer_eventhubname" />
+        <result column="peer_location" property="peer_location" />
+        <result column="peer_eventhublocation" property="peer_eventhublocation" />
+        <result column="is_eventlistener" property="is_eventlistener" />
+        <result column="config_id" property="config_id" />
+        <result column="is_delete" property="is_delete" />
+    </resultMap>
+    <select id="queryFabricConfig" resultMap="FabricConfigModelResultMap">
+        SELECT * FROM fabric_config
+        <where>
+            is_delete=0
+            <if test="leagueId != null and leagueId != ''">
+                AND league_id = #{leagueId}
+            </if>
+        </where>
+    </select>
+    <select id="queryAllFabricConfig" resultMap="FabricConfigModelResultMap">
+        SELECT * FROM fabric_config
+        <where>
+            is_delete=0
+        </where>
+    </select>
+    <insert id="addFabricConfig" parameterType="com.hhdl.evtp.model.FabricConfigModel">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="row_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO
+        fabric_config(league_id,org_name,user_name,cryptoconfig_path,channelartifacts_path,org_mspid,org_domain,orderer_domain,channel_name,chaincode_name,chaincode_source,chaincode_path,chaincode_policy,
+        chaincode_version, proposal_waittime,invoke_waittime,is_tls,is_catls,is_delete,ca_location,ca_name)
+        VALUES(#{league_id}, #{org_name}, #{user_name}, #{cryptoconfig_path}, #{channelartifacts_path}, #{org_mspid},
+        #{org_domain}, #{orderer_domain}, #{channel_name}, #{chaincode_name}, #{chaincode_source}, #{chaincode_path},
+        #{chaincode_policy}, #{chaincode_version}, #{proposal_waittime}, #{invoke_waittime}, #{is_tls}, #{is_catls}, 0,#{ca_location}, #{ca_name})
+    </insert>
+
+    <update id="modifyFabricConfig" parameterType="com.hhdl.evtp.model.FabricConfigModel">
+        UPDATE fabric_config
+        <set>
+            <if test="league_id != null">league_id=#{league_id},</if>
+            <if test="org_name != null">org_name=#{org_name},</if>
+            <if test="user_name != null">user_name=#{user_name},</if>
+            <if test="cryptoconfig_path != null">cryptoconfig_path=#{cryptoconfig_path},</if>
+            <if test="channelartifacts_path != null">channelartifacts_path=#{channelartifacts_path},</if>
+            <if test="org_mspid != null">org_mspid=#{org_mspid},</if>
+            <if test="org_domain != null">org_domain=#{org_domain},</if>
+            <if test="orderer_domain != null">orderer_domain=#{orderer_domain},</if>
+            <if test="channel_name != null">channel_name=#{channel_name},</if>
+            <if test="chaincode_name != null">chaincode_name=#{chaincode_name},</if>
+            <if test="chaincode_source != null">chaincode_source=#{chaincode_source},</if>
+            <if test="chaincode_path != null">chaincode_path=#{chaincode_path},</if>
+            <if test="chaincode_policy != null">chaincode_policy=#{chaincode_policy},</if>
+            <if test="chaincode_version != null">chaincode_version=#{chaincode_version},</if>
+            <if test="proposal_waittime != null">proposal_waittime=#{proposal_waittime},</if>
+            <if test="invoke_waittime != null">invoke_waittime=#{invoke_waittime},</if>
+            <if test="is_tls != null">is_tls=#{is_tls},</if>
+            <if test="is_catls != null">is_catls=#{is_catls},</if>
+            <if test="is_delete != null">is_delete=#{is_delete},
+            </if><if test="ca_location != null">ca_location=#{ca_location},</if>
+            <if test="ca_name != null">ca_name=#{ca_name},</if>
+        </set>
+        WHERE row_id=#{row_id}
+    </update>
+
+    <select id="queryFabricOrderer" resultMap="FabricConfigOrdererModelResultMap">
+        SELECT * FROM fabric_orderer
+        <where>
+            is_delete=0
+            <if test="configId != null and configId > 0">
+                AND config_id = #{configId}
+            </if>
+        </where>
+    </select>
+    <select id="queryAllFabricOrderer" resultMap="FabricConfigOrdererModelResultMap">
+        SELECT * FROM fabric_orderer
+        <where>
+            is_delete=0
+        </where>
+    </select>
+
+    <insert id="addFabricOrderer" parameterType="com.hhdl.evtp.model.FabricConfigOrdererModel">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="row_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO fabric_orderer(orderer_name,orderer_location,config_id,is_delete) VALUES(#{orderer_name},
+        #{orderer_location}, #{config_id}, 0)
+    </insert>
+
+    <update id="modifyFabricOrderer" parameterType="com.hhdl.evtp.model.FabricConfigOrdererModel">
+        UPDATE fabric_orderer
+        <set>
+            <if test="orderer_name != null">orderer_name=#{orderer_name},</if>
+            <if test="orderer_location != null">orderer_location=#{orderer_location},</if>
+            <if test="config_id != null">config_id=#{config_id},</if>
+            <if test="is_delete != null">is_delete=#{is_delete},</if>
+        </set>
+        WHERE row_id=#{row_id}
+    </update>
+
+    <delete id="deleteFabricOrderer" parameterType="int">
+        UPDATE fabric_orderer SET is_delete=1
+        <where>
+            <if test="configId != null and configId > 0">
+                config_id = #{configId}
+            </if>
+        </where>
+    </delete>
+
+    <select id="queryFabricPeer" resultMap="FabricConfigPeerModelResultMap">
+        SELECT * FROM fabric_peer
+        <where>
+            is_delete=0
+            <if test="configId != null and configId > 0">
+                AND config_id = #{configId}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryAllFabricPeer" resultMap="FabricConfigPeerModelResultMap">
+        SELECT * FROM fabric_peer
+        <where>
+            is_delete=0
+        </where>
+    </select>
+
+    <insert id="addFabricPeer" parameterType="com.hhdl.evtp.model.FabricConfigPeerModel">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="row_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO
+        fabric_peer(peer_name,peer_eventhubname,peer_location,peer_eventhublocation,is_eventlistener,config_id,is_delete)
+        VALUES(#{peer_name}, #{peer_eventhubname}, #{peer_location}, #{peer_eventhublocation}, #{is_eventlistener},
+        #{config_id}, 0)
+    </insert>
+
+    <update id="modifyFabricPeer" parameterType="com.hhdl.evtp.model.FabricConfigPeerModel">
+        UPDATE fabric_peer
+        <set>
+            <if test="peer_name != null">peer_name=#{peer_name},</if>
+            <if test="peer_eventhubname != null">peer_eventhubname=#{peer_eventhubname},</if>
+            <if test="peer_location != null">peer_location=#{peer_location},</if>
+            <if test="peer_eventhublocation != null">peer_eventhublocation=#{peer_eventhublocation},</if>
+            <if test="is_eventlistener != null">is_eventlistener=#{is_eventlistener},</if>
+            <if test="config_id != null">config_id=#{config_id},</if>
+            <if test="is_delete != null">is_delete=#{is_delete},</if>
+        </set>
+        WHERE row_id=#{row_id}
+    </update>
+
+    <delete id="deleteFabricPeer" parameterType="int">
+        UPDATE fabric_peer SET is_delete=1
+        <where>
+            <if test="configId != null and configId > 0">
+                config_id = #{configId}
+            </if>
+        </where>
+    </delete>
+</mapper>

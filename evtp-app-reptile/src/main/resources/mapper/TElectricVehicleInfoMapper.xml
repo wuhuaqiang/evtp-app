@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhdl.dao.TElectricVehicleInfoDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hhdl.model.TElectricVehicleInfo">
+        <id column="id" property="id"/>
+        <result column="car_name" property="carName"/>
+        <result column="car_type" property="carType"/>
+        <result column="price" property="price"/>
+        <result column="dynamic_type" property="dynamicType"/>
+        <result column="quality" property="quality"/>
+        <result column="battery_capacity" property="batteryCapacity"/>
+        <result column="charging_time" property="chargingTime"/>
+        <result column="power_consumption" property="powerConsumption"/>
+        <result column="maximum_range" property="maximumRange"/>
+        <result column="created" property="created"/>
+        <result column="updated" property="updated"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        ,
+        car_name
+        AS
+        carName,
+        car_type
+        AS
+        carType,
+        price,
+        dynamic_type
+        AS
+        dynamicType,
+        quality,
+        battery_capacity
+        AS
+        batteryCapacity,
+        charging_time
+        AS
+        chargingTime,
+        power_consumption
+        AS
+        powerConsumption,
+        maximum_range
+        AS
+        maximumRange,
+        created,
+        updated
+    </sql>
+
+</mapper>

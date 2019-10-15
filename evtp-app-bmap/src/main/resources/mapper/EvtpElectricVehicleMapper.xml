@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhdl.dao.EvtpElectricVehicleDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hhdl.model.EvtpElectricVehicle">
+        <id column="id" property="id" />
+        <result column="current_power" property="currentPower" />
+        <result column="battery_capacity" property="batteryCapacity" />
+        <result column="position" property="position" />
+        <result column="position_val" property="positionVal" />
+        <result column="current_speed" property="currentSpeed" />
+        <result column="max_speed" property="maxSpeed" />
+        <result column="charging_efficiency" property="chargingEfficiency" />
+        <result column="power_consumption_per_kilometer" property="powerConsumptionPerKilometer" />
+        <result column="total_mileage" property="totalMileage" />
+        <result column="run_state" property="runState" />
+        <result column="charge_discharge_state" property="chargeDischargeState" />
+        <result column="state" property="state" />
+        <result column="remark" property="remark" />
+        <result column="charging_speed" property="chargingSpeed" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, current_power AS currentPower, battery_capacity AS batteryCapacity, position, position_val AS positionVal, current_speed AS currentSpeed, max_speed AS maxSpeed, charging_efficiency AS chargingEfficiency, power_consumption_per_kilometer AS powerConsumptionPerKilometer, total_mileage AS totalMileage, run_state AS runState, charge_discharge_state AS chargeDischargeState, state, remark, charging_speed AS chargingSpeed
+    </sql>
+    <delete id="delAll">
+        delete
+        from evtp_electric_vehicle
+    </delete>
+
+</mapper>

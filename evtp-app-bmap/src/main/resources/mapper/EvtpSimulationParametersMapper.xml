@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhdl.dao.EvtpSimulationParametersDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hhdl.model.EvtpSimulationParameters">
+        <id column="id" property="id" />
+        <result column="battery_capacity" property="batteryCapacity" />
+        <result column="electric_vehicle_number" property="electricVehicleNumber" />
+        <result column="charging_efficiency" property="chargingEfficiency" />
+        <result column="power_consumption_per_kilometer" property="powerConsumptionPerKilometer" />
+        <result column="charging_speed" property="chargingSpeed" />
+        <result column="charging_station_number" property="chargingStationNumber" />
+        <result column="charging_pile_number" property="chargingPileNumber" />
+        <result column="parking_space_number" property="parkingSpaceNumber" />
+        <result column="transaction_strategy" property="transactionStrategy" />
+        <result column="step" property="step" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, battery_capacity AS batteryCapacity, electric_vehicle_number AS electricVehicleNumber, charging_efficiency AS chargingEfficiency, power_consumption_per_kilometer AS powerConsumptionPerKilometer, charging_speed AS chargingSpeed, charging_station_number AS chargingStationNumber, charging_pile_number AS chargingPileNumber, parking_space_number AS parkingSpaceNumber, transaction_strategy AS transactionStrategy, step, remark
+    </sql>
+
+</mapper>

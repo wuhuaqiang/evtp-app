@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhdl.dao.TRunLogDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hhdl.model.TRunLog">
+        <id column="id" property="id" />
+        <result column="start_point" property="startPoint" />
+        <result column="end_point" property="endPoint" />
+        <result column="start_point_val" property="startPointVal" />
+        <result column="end_point_val" property="endPointVal" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+        <result column="ower_id" property="owerId" />
+        <result column="sort" property="sort" />
+        <result column="remark" property="remark" />
+        <result column="state" property="state" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, start_point AS startPoint, end_point AS endPoint, start_point_val AS startPointVal, end_point_val AS endPointVal, start_time AS startTime, end_time AS endTime, ower_id AS owerId, sort, remark, state
+    </sql>
+
+</mapper>

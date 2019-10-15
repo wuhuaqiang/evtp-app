@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhdl.dao.EvtpChargingParkingDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hhdl.model.EvtpChargingParking">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="number" property="number" />
+        <result column="cs_id" property="csId" />
+        <result column="state" property="state" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, number, cs_id AS csId, state, remark
+    </sql>
+    <delete id="delAll">
+        delete
+        from evtp_charging_parking
+    </delete>
+</mapper>

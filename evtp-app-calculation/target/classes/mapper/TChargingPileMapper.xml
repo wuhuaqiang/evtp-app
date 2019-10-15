@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhdl.dao.TChargingPileDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hhdl.model.TChargingPile">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="capacity" property="capacity"/>
+        <result column="position" property="position"/>
+        <result column="position_val" property="positionVal"/>
+        <result column="charging_efficiency" property="chargingEfficiency"/>
+        <result column="create_time" property="createTime"/>
+        <result column="run_time" property="runTime"/>
+        <result column="cs_id" property="csId"/>
+        <result column="state" property="state"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        ,
+        name,
+        capacity,
+        position,
+        position_val
+        AS
+        positionVal,
+        charging_efficiency
+        AS
+        chargingEfficiency,
+        create_time
+        AS
+        createTime,
+        run_time
+        AS
+        runTime,
+        state,
+        cs_id
+        As
+        csId
+    </sql>
+
+</mapper>

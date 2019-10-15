@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhdl.dao.EvtpChargingStationDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hhdl.model.EvtpChargingStation">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="capacity" property="capacity" />
+        <result column="pile_number" property="pileNumber" />
+        <result column="position" property="position" />
+        <result column="position_val" property="positionVal" />
+        <result column="state" property="state" />
+        <result column="charging_efficiency" property="chargingEfficiency" />
+        <result column="create_time" property="createTime" />
+        <result column="run_time" property="runTime" />
+        <result column="account" property="account" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, capacity, pile_number AS pileNumber, position, position_val AS positionVal, state, charging_efficiency AS chargingEfficiency, create_time AS createTime, run_time AS runTime, account
+    </sql>
+    <delete id="delAll">
+        delete
+        from evtp_charging_station
+    </delete>
+
+</mapper>
