@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/evtp-app-blockchain" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/evtp-app-bmap" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/evtp-app-calculation" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/evtp-app-common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/evtp-app-config" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/evtp-app-eureka" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/evtp-app-hystrix" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/evtp-app-jade" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/evtp-app-reptile" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/evtp-app-schedule" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/evtp-app-system" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/evtp-app-system-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/evtp-app-turbine" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/evtp-app-zipkin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/evtp-app-zuul" charset="UTF-8" />
+  </component>
+</project>

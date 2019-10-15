@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="evtp-app-calculation" />
+        <module name="evtp-app-reptile" />
+        <module name="evtp-app-bmap" />
+        <module name="evtp-app-turbine" />
+        <module name="evtp-app-jade" />
+        <module name="evtp-app-blockchain" />
+        <module name="evtp-app-system-api" />
+        <module name="evtp-app-eureka" />
+        <module name="evtp-app-config" />
+        <module name="evtp-app-zipkin" />
+        <module name="evtp-app-schedule" />
+        <module name="evtp-app-system" />
+        <module name="evtp-app-hystrix" />
+        <module name="evtp-app-zuul" />
+        <module name="evtp-app-common" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="evtp-app-blockchain" options="-parameters" />
+      <module name="evtp-app-bmap" options="-parameters" />
+      <module name="evtp-app-calculation" options="-parameters" />
+      <module name="evtp-app-common" options="-parameters" />
+      <module name="evtp-app-config" options="-parameters" />
+      <module name="evtp-app-eureka" options="-parameters" />
+      <module name="evtp-app-hystrix" options="-parameters" />
+      <module name="evtp-app-jade" options="-parameters" />
+      <module name="evtp-app-reptile" options="-parameters" />
+      <module name="evtp-app-schedule" options="-parameters" />
+      <module name="evtp-app-system" options="-parameters" />
+      <module name="evtp-app-system-api" options="-parameters" />
+      <module name="evtp-app-turbine" options="-parameters" />
+      <module name="evtp-app-zipkin" options="-parameters" />
+      <module name="evtp-app-zuul" options="-parameters" />
+    </option>
+  </component>
+</project>
