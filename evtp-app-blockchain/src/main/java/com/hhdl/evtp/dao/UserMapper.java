@@ -19,6 +19,8 @@ public interface UserMapper extends BaseMapper<UserModel> {
      */
     public UserModel getUser(@Param("account") String account, @Param("password") String password);
 
+    public List<UserModel> getUserByAccount(@Param("account") String account);
+
     public UserModel getUserById(@Param("row_id") int row_id);
 
     /**

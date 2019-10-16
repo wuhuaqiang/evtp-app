@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.List;
+
 /**
  * Created by linwf on 2018/11/26.
  */
@@ -27,6 +29,10 @@ public class WebServiceImpl implements WebService {
     public UserModel getUser(String account, String password) {
         String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());
         return userMapper.getUser(account, md5Password);
+    }
+
+    public List<UserModel> getUserByAccount(String account) {
+        return userMapper.getUserByAccount(account);
     }
 
     public int save(JSONObject json) {
@@ -110,6 +116,7 @@ public class WebServiceImpl implements WebService {
 
     /**
      * 添加用户
+     *
      * @param userModel
      * @return
      */

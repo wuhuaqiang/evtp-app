@@ -65,7 +65,7 @@ public class CommonController {
         result.put("userInfo", tUser);
         result.put("evInfo", tElectricVehicle);
         session.setAttribute(session.getId(), user);
-        redisCacheService.set("sessionId",session.getId().toString(),24*60*60*1000);
+        redisCacheService.set("sessionId", session.getId().toString(), 24 * 60 * 60 * 1000);
         return CommonResult.success(result, "登录成功!");
     }
 
@@ -80,20 +80,26 @@ public class CommonController {
             return CommonResult.failed("用户名或者密码不能为空!");
         }
         try {
-            webService.addUser(userModel);
-            FabricConfigModel fabricConfigModel = fabricConfigMapper.queryFabricConfig(String.valueOf(userModel.getLeague_id())).get(0);
-            if ("Org1MSP".equals(fabricConfigModel.getOrg_mspid())) {
+            List<UserModel> userByAccount = webService.getUserByAccount(userModel.getAccount());
+            if (userByAccount.size() > 0) {
+                CommonResult.failed("用户名已经注册，请使用其他名称!");
+            } else {
+                webService.addUser(userModel);
+                FabricConfigModel fabricConfigModel = fabricConfigMapper.queryFabricConfig(String.valueOf(userModel.getLeague_id())).get(0);
+                if ("Org1MSP".equals(fabricConfigModel.getOrg_mspid())) {
 //                FabricCA.registerUser(FabricCa1.ORGNAME, FabricCa1.MSPID, FabricCa1.CALOCATION, FabricCa1.CANAME, FabricCa1.ADMINNAME, FabricCa1.ADMINPASSWD, userModel.getAccount(), userModel.getPassword(), FabricCa1.AFFILIATION1);
-                FabricCA.registerUser(FabricCa1.ORGNAME, FabricCa1.MSPID, fabricConfigModel.getCa_location(), fabricConfigModel.getCa_name(), FabricCa1.ADMINNAME, FabricCa1.ADMINPASSWD, userModel.getAccount(), userModel.getPassword(), FabricCa1.AFFILIATION1);
-            }
-            if ("Org2MSP".equals(fabricConfigModel.getOrg_mspid())) {
+                    FabricCA.registerUser(FabricCa1.ORGNAME, FabricCa1.MSPID, fabricConfigModel.getCa_location(), fabricConfigModel.getCa_name(), FabricCa1.ADMINNAME, FabricCa1.ADMINPASSWD, userModel.getAccount(), userModel.getPassword(), FabricCa1.AFFILIATION1);
+                }
+                if ("Org2MSP".equals(fabricConfigModel.getOrg_mspid())) {
 //                FabricCA.registerUser(FabricCa2.ORGNAME, FabricCa2.MSPID, FabricCa2.CALOCATION, FabricCa2.CANAME, FabricCa2.ADMINNAME, FabricCa2.ADMINPASSWD, userModel.getAccount(), userModel.getPassword(), FabricCa2.AFFILIATION1);
-                FabricCA.registerUser(FabricCa2.ORGNAME, FabricCa2.MSPID, fabricConfigModel.getCa_location(), fabricConfigModel.getCa_name(), FabricCa2.ADMINNAME, FabricCa2.ADMINPASSWD, userModel.getAccount(), userModel.getPassword(), FabricCa2.AFFILIATION1);
-            }
-            if ("Org3MSP".equals(fabricConfigModel.getOrg_mspid())) {
+                    FabricCA.registerUser(FabricCa2.ORGNAME, FabricCa2.MSPID, fabricConfigModel.getCa_location(), fabricConfigModel.getCa_name(), FabricCa2.ADMINNAME, FabricCa2.ADMINPASSWD, userModel.getAccount(), userModel.getPassword(), FabricCa2.AFFILIATION1);
+                }
+                if ("Org3MSP".equals(fabricConfigModel.getOrg_mspid())) {
 //                FabricCA.registerUser(FabricCa3.ORGNAME, FabricCa3.MSPID, FabricCa3.CALOCATION, FabricCa3.CANAME, FabricCa3.ADMINNAME, FabricCa3.ADMINPASSWD, userModel.getAccount(), userModel.getPassword(), FabricCa3.AFFILIATION1);
-                FabricCA.registerUser(FabricCa3.ORGNAME, FabricCa3.MSPID, fabricConfigModel.getCa_location(), fabricConfigModel.getCa_name(), FabricCa3.ADMINNAME, FabricCa3.ADMINPASSWD, userModel.getAccount(), userModel.getPassword(), FabricCa3.AFFILIATION1);
+                    FabricCA.registerUser(FabricCa3.ORGNAME, FabricCa3.MSPID, fabricConfigModel.getCa_location(), fabricConfigModel.getCa_name(), FabricCa3.ADMINNAME, FabricCa3.ADMINPASSWD, userModel.getAccount(), userModel.getPassword(), FabricCa3.AFFILIATION1);
+                }
             }
+
 
             return CommonResult.success("注册成功!");
         } catch (Exception e) {

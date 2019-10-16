@@ -18,6 +18,11 @@
         WHERE account = #{account}
           AND password = #{password} AND is_delete = 0
     </select>
+    <select id="getUserByAccount" resultMap="BaseResultMap">
+        SELECT *
+        FROM fabric_user
+        WHERE account = #{account} AND is_delete = 0
+    </select>
     <select id="getUserById" resultMap="BaseResultMap">
         SELECT *
         FROM fabric_user
