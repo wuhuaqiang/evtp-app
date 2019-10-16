@@ -82,7 +82,7 @@ public class CommonController {
         try {
             List<UserModel> userByAccount = webService.getUserByAccount(userModel.getAccount());
             if (userByAccount.size() > 0) {
-               return CommonResult.failed("用户名已经注册，请使用其他名称!");
+               return CommonResult.failed("该账户已经注册，请更换后重试!");
             } else {
                 webService.addUser(userModel);
                 FabricConfigModel fabricConfigModel = fabricConfigMapper.queryFabricConfig(String.valueOf(userModel.getLeague_id())).get(0);
