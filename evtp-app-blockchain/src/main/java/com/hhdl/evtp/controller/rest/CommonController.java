@@ -82,7 +82,7 @@ public class CommonController {
         try {
             List<UserModel> userByAccount = webService.getUserByAccount(userModel.getAccount());
             if (userByAccount.size() > 0) {
-                CommonResult.failed("用户名已经注册，请使用其他名称!");
+               return CommonResult.failed("用户名已经注册，请使用其他名称!");
             } else {
                 webService.addUser(userModel);
                 FabricConfigModel fabricConfigModel = fabricConfigMapper.queryFabricConfig(String.valueOf(userModel.getLeague_id())).get(0);
@@ -103,8 +103,7 @@ public class CommonController {
 
             return CommonResult.success("注册成功!");
         } catch (Exception e) {
-            CommonResult.failed("注册失败!");
+            return CommonResult.failed("注册失败!");
         }
-        return CommonResult.success("注册成功!");
     }
 }
