@@ -106,11 +106,11 @@ public class ChainCodeController {
                 argArray[i] = jsonArray.getString(i);
             }
             chainCodeService.chainCodeInvoke(fcn, argArray);
-//            try {
-//                Thread.sleep(5000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
 
