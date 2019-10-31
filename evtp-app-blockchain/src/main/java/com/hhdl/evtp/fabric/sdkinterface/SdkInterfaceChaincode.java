@@ -19,7 +19,7 @@ import java.util.concurrent.TimeoutException;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
- * Created by linwf on 2018/10/28.
+ * 智能合约
  */
 public class SdkInterfaceChaincode extends SdkInterfaceBase {
     // 智能合约名称
