@@ -1,7 +1,11 @@
 package com.hhdl.service.Impl;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.hhdl.common.model.Account;
+import com.hhdl.common.util.DateTimeUtils;
+import com.hhdl.common.util.JsonUtils;
 import com.hhdl.model.*;
 import com.hhdl.service.*;
 import com.hhdl.util.BlockChainUtils;
@@ -97,9 +101,15 @@ public class EvtpInitMapServiceImpl implements EvtpInitMapService {
             evtpUser.setCreatedate(UUIDKey.getDate());
             evtpUser.setAccount("200.00");
             List<String> args = new ArrayList<>();
-            args.add(evtpUser.getId()+"Account");
-            args.add(evtpUser.getAccount());
+//            args.add(evtpUser.getId()+"Account");
+//            args.add(evtpUser.getAccount());
             String fcnName = "initAccount";
+            Account account = new Account();
+            account.setRealName(evtpUser.getName());
+            account.setAccountNo(evtpUser.getId()+"Account");
+            account.setAccountBalance(Double.valueOf(evtpUser.getAccount()));
+            account.setCreatedTime(DateTimeUtils.formatNow());
+            args.add(JsonUtils.object2Json(account));
             BlockChainUtils.executeBlockChain(args, fcnName, sessionId,"invoke");
             evtpUserService.insert(evtpUser);
             evtpElectricVehicleService.insert(evtpElectricVehicle);
@@ -118,8 +128,14 @@ public class EvtpInitMapServiceImpl implements EvtpInitMapService {
             evtpChargingStation.setState("1");
             evtpChargingStation.setAccount("500.00");
             List<String> args = new ArrayList<>();
-            args.add(evtpChargingStation.getId()+"Account");
-            args.add(evtpChargingStation.getAccount());
+//            args.add(evtpChargingStation.getId()+"Account");
+//            args.add(evtpChargingStation.getAccount());
+            Account account = new Account();
+            account.setRealName(evtpChargingStation.getName());
+            account.setAccountNo(evtpChargingStation.getId()+"Account");
+            account.setAccountBalance(Double.valueOf(evtpChargingStation.getAccount()));
+            account.setCreatedTime(DateTimeUtils.formatNow());
+            args.add(JsonUtils.object2Json(account));
             String fcnName = "initAccount";
             BlockChainUtils.executeBlockChain(args, fcnName, sessionId,"invoke");
             evtpChargingStationService.insert(evtpChargingStation);
