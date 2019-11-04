@@ -1,6 +1,8 @@
 package com.hhdl.entity;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hhdl.common.model.ElectricityTradingRecord;
+import com.hhdl.common.util.JsonUtils;
 import com.hhdl.endpoint.WebSocket;
 import com.hhdl.model.*;
 import com.hhdl.mybeanutils.MyBeanUtils;
@@ -9,6 +11,7 @@ import com.hhdl.service.EvtpLineService;
 import com.hhdl.service.EvtpTransactionService;
 import com.hhdl.service.Impl.RedisCacheService;
 import com.hhdl.util.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -178,14 +181,24 @@ public class MapGoChargingTask extends TimerTask {
 //                BlockChainUtils.queryBlockChainInfo("chaincode/invoke", params, sessionId);
                 evtpTransactionService.transferAccounts(evtpLine.getOwerId(), evtpChargingStation.getId(), chargingInfo.get("finalPay"));
                 List<String> args = new ArrayList<>();
-                args.add(currentPower);
-                args.add(chargingInfo.get("realSOCChange"));
-                args.add(chargingInfo.get("finalPay"));
-                args.add(evtpLine.getOwerId());
-                args.add(evtpChargingStation.getId());
-                args.add(chargingInfo.get("startTime"));
-                args.add(chargingInfo.get("chargeTime"));
+                ElectricityTradingRecord tradingRecord = new ElectricityTradingRecord();
+                tradingRecord.setStartTime(chargingInfo.get("startTime"));
+                tradingRecord.setAddSoc(chargingInfo.get("realSOCChange"));
+                tradingRecord.setBuyerId(evtpLine.getOwerId());
+                tradingRecord.setChargingTime(chargingInfo.get("chargeTime"));
+                tradingRecord.setMoney(chargingInfo.get("finalPay"));
+                tradingRecord.setOldSoc(currentPower);
+                tradingRecord.setSellerId(evtpChargingStation.getId());
+//                args.add(currentPower);
+//                args.add(chargingInfo.get("realSOCChange"));
+//                args.add(chargingInfo.get("finalPay"));
+//                args.add(evtpLine.getOwerId());
+//                args.add(evtpChargingStation.getId());
+//                args.add(chargingInfo.get("startTime"));
+//                args.add(chargingInfo.get("chargeTime"));
+                args.add(JsonUtils.object2Json(tradingRecord));
                 String fcnName = "addElectricityTradingRecord";
+
                 BlockChainUtils.executeBlockChain(args, fcnName, sessionId, "invoke");
                 args.clear();
                 args.add(evtpLine.getOwerId()+"Account");
