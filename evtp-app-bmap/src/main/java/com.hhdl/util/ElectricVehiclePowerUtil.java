@@ -1,6 +1,7 @@
 package com.hhdl.util;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hhdl.common.model.Offer;
 import com.hhdl.entity.HttpClientResult;
 import com.hhdl.mybeanutils.MyBeanUtils;
 
@@ -41,10 +42,25 @@ public class ElectricVehiclePowerUtil {
         param.put("output", "json");
         param.put("n1", String.valueOf(currPower));//时间
         param.put("n2", String.valueOf(totalPowerConsumption));
-        param.put("n3", String.valueOf(totalTime/60000));
+        param.put("n3", String.valueOf(totalTime / 60000));
         param.put("n4", String.valueOf(totalPoints));
         param.put("n5", userId);
         HttpClientResult httpClientResult = HttpClientUtils.doGet("http://10.168.1.151:8000/dischargeTest", param);
+        JSONObject jsonObject = JSONObject.parseObject(httpClientResult.getContent());
+        return result;
+    }
+
+    public static Map<String, String> quote(Offer offer) throws Exception {
+
+        Map<String, String> result = new HashMap<>();
+        Map param = new HashMap();
+        param.put("output", "json");
+        param.put("userid", offer.getUserId().toString());
+        param.put("pmax", offer.getpMax().toString());
+        param.put("pmin", offer.getpMin().toString());
+        param.put("soc", offer.getSoc().toString());
+        param.put("userrole", offer.getUserRole());
+        HttpClientResult httpClientResult = HttpClientUtils.doPost("http://10.168.1.151:8000/mock/quote/", param);
         JSONObject jsonObject = JSONObject.parseObject(httpClientResult.getContent());
         return result;
     }

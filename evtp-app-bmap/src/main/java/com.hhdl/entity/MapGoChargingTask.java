@@ -2,6 +2,7 @@ package com.hhdl.entity;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hhdl.common.model.ElectricityTradingRecord;
+import com.hhdl.common.model.Offer;
 import com.hhdl.common.util.JsonUtils;
 import com.hhdl.endpoint.WebSocket;
 import com.hhdl.model.*;
@@ -196,13 +197,25 @@ public class MapGoChargingTask extends TimerTask {
 //                args.add(evtpChargingStation.getId());
 //                args.add(chargingInfo.get("startTime"));
 //                args.add(chargingInfo.get("chargeTime"));
+                Offer offer = new Offer();
+                offer.setUserId(evtpLine.getOwerId());
+                offer.setUserRole("charge");
+                offer.setSoc(Double.valueOf(chargingInfo.get("realSOCChange")));
+                offer.setpMax(Match.getRandomNumber(0.5,0.7));
+                offer.setpMin(Match.getRandomNumber(0.2,0.3));
+                try {
+                    ElectricVehiclePowerUtil.quote(offer);
+                } catch (
+                        Exception e) {
+                    e.printStackTrace();
+                }
                 args.add(JsonUtils.object2Json(tradingRecord));
                 String fcnName = "addElectricityTradingRecord";
 
                 BlockChainUtils.executeBlockChain(args, fcnName, sessionId, "invoke");
                 args.clear();
-                args.add(evtpLine.getOwerId()+"Account");
-                args.add(evtpChargingStation.getId()+"Account");
+                args.add(evtpLine.getOwerId() + "Account");
+                args.add(evtpChargingStation.getId() + "Account");
                 args.add(chargingInfo.get("finalPay"));
                 fcnName = "transferAccounts";
                 BlockChainUtils.executeBlockChain(args, fcnName, sessionId, "invoke");

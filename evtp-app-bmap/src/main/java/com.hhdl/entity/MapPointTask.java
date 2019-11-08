@@ -1,5 +1,6 @@
 package com.hhdl.entity;
 
+import com.hhdl.common.model.Offer;
 import com.hhdl.endpoint.WebSocket;
 import com.hhdl.model.*;
 import com.hhdl.mybeanutils.MyBeanUtils;
@@ -7,6 +8,7 @@ import com.hhdl.service.EvtpElectricVehicleService;
 import com.hhdl.service.EvtpLineService;
 import com.hhdl.service.Impl.RedisCacheService;
 import com.hhdl.util.ArithUtil;
+import com.hhdl.util.ElectricVehiclePowerUtil;
 import com.hhdl.util.NearestChargingStationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
