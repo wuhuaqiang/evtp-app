@@ -4,9 +4,6 @@ import com.baomidou.mybatisplus.annotations.TableName;
 
 import java.io.Serializable;
 
-/**
- * Created by linwf on 2018/11/26.
- */
 @TableName("fabric_use")
 public class UserModel implements Serializable {
     private static final long serialVersionUID = -8366929034564774130L;

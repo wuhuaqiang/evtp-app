@@ -1,8 +1,6 @@
 package com.hhdl.evtp.model;
 
-/**
- * Created by linwf on 2018/12/17.
- */
+
 
 public class FabricConfigOrdererModel {
     private int row_id;  //序号

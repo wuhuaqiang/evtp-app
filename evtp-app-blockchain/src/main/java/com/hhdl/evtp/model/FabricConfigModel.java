@@ -1,8 +1,6 @@
 package com.hhdl.evtp.model;
 
-/**
- * Created by linwf on 2018/11/18.
- */
+
 
 import com.baomidou.mybatisplus.annotations.TableName;
 
