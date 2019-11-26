@@ -1,8 +1,6 @@
 package com.hhdl.evtp.javaCAsdk;
 
-/**
- * Created by 夕 on 2018/10/24 14:03
- */
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

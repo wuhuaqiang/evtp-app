@@ -1,8 +1,6 @@
 package com.hhdl.evtp.javaCAsdk;
 
-/**
- * Created by 夕 on 2018/10/22 17:34
- */
+
 
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
