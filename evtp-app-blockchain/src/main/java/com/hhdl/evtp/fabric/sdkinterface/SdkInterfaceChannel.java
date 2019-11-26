@@ -21,9 +21,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by linwf on 2018/10/28.
- */
+
 public class SdkInterfaceChannel extends SdkInterfaceBase {
     private SdkInterfaceOrg org;
 

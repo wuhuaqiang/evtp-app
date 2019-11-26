@@ -2,9 +2,7 @@ package com.hhdl.evtp.fabric.sdkinterface;
 
 import com.hhdl.evtp.fabric.sdkinterface.base.SdkInterfaceBase;
 
-/**
- * Created by linwf on 2018/10/28.
- */
+
 public class SdkInterfaceOrderer extends SdkInterfaceBase {
     // orderer 排序服务器的域名
     private String ordererName;

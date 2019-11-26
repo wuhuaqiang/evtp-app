@@ -27,9 +27,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 
-/**
- * Created by linwf on 2018/10/28.
- */
+
 public class SdkInterfaceOrg extends SdkInterfaceBase {
     int SUCCESS = 200;
     int FAIL = 40029;

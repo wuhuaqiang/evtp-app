@@ -7,9 +7,7 @@ import org.hyperledger.fabric.sdk.User;
 import java.io.Serializable;
 import java.util.Set;
 
-/**
- * Created by linwf on 2018/10/28.
- */
+
 public class SdkInterfaceUser extends SdkInterfaceBase implements User, Serializable {
 
     // 名称

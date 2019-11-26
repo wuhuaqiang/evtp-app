@@ -18,9 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * Created by linwf on 2018/10/28.
- */
+
 public class SdkInterfaceBase {
     private static final Log log = LogFactory.getLog(SdkInterfaceBase.class);
 

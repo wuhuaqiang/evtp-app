@@ -2,9 +2,7 @@ package com.hhdl.evtp.fabric.sdkinterface;
 
 import com.hhdl.evtp.fabric.sdkinterface.base.SdkInterfaceBase;
 
-/**
- * Created by linwf on 2018/10/28.
- */
+
 public class SdkInterfacePeer extends SdkInterfaceBase {
     // 节点域名
     private String peerName; // peer0.org1.example.com
