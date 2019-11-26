@@ -23,9 +23,6 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
-/**
- * Created by linwf on 2018/10/28.
- */
 public class SdkManager {
 
     private SdkInterfaceOrg sdkInterfaceOrg;
