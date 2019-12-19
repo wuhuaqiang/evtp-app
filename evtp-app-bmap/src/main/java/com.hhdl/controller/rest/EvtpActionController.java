@@ -36,8 +36,9 @@ public class EvtpActionController {
     private EvtpActionService evtpActionService;
 
     @RequestMapping("/acton")
-    public void acton() throws Exception {
+    public CommonResult acton() throws Exception {
         evtpActionService.acton();
+        return CommonResult.success("成功");
     }
 }
 
