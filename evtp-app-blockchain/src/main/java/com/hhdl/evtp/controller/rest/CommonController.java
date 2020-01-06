@@ -64,6 +64,7 @@ public class CommonController {
         result.put("user", user);
         result.put("userInfo", tUser);
         result.put("evInfo", tElectricVehicle);
+        result.put("sessionId", session.getId().toString());
         session.setAttribute(session.getId(), user);
         redisCacheService.set("sessionId", session.getId().toString(), 24 * 60 * 60 * 1000);
         return CommonResult.success(result, "登录成功!");

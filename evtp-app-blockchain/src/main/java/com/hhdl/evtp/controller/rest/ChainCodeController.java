@@ -3,6 +3,7 @@ package com.hhdl.evtp.controller.rest;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.hhdl.common.model.CommonResult;
 import com.hhdl.evtp.service.ChainCodeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -75,7 +76,7 @@ public class ChainCodeController {
      */
     @RequestMapping(value = "/invoke", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String chainCodeInvoke(@RequestBody Map<String, Object> map) {
+    public CommonResult chainCodeInvoke(@RequestBody Map<String, Object> map) {
         JSONObject json = new JSONObject(map);
         String fcn = json.getString("fcn");
         JSONArray arrayJson = json.getJSONArray("args");
@@ -84,7 +85,7 @@ public class ChainCodeController {
         for (int i = 0; i < length; i++) {
             argArray[i] = arrayJson.getString(i);
         }
-        return chainCodeService.chainCodeInvoke(fcn, argArray);
+        return CommonResult.success(chainCodeService.chainCodeInvoke(fcn, argArray));
     }
     /**
      * 执行智能合约
@@ -93,7 +94,7 @@ public class ChainCodeController {
      */
     @RequestMapping(value = "/invokeBatch", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     @ResponseBody
-    public String chainCodeInvokeBatch(@RequestBody Map<String, Object> map) {
+    public CommonResult chainCodeInvokeBatch(@RequestBody Map<String, Object> map) {
         JSONObject json = new JSONObject(map);
         String fcn = json.getString("fcn");
         JSONArray arrayJson = json.getJSONArray("args");
@@ -114,7 +115,7 @@ public class ChainCodeController {
         }
 
 
-        return "执行成功！";
+        return CommonResult.success("报价成功");
     }
     /**
      * 查询智能合约
