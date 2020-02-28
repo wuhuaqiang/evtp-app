@@ -3,8 +3,10 @@ package com.hhdl.controller.rest;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.hhdl.common.model.CommonResult;
 import com.hhdl.model.EvtpLine;
+import com.hhdl.model.EvtpUser;
 import com.hhdl.service.EvtpLineService;
 import com.hhdl.util.UUIDKey;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class EvtpLineController {
     @Autowired
     private EvtpLineService evtpLineService;
-
+    @RequestMapping("/page")
+    public CommonResult page(@RequestParam int page, int limit) {
+        Page<EvtpLine> evtpLinePage = new Page<>(page, limit);
+        return CommonResult.success(evtpLineService.selectPage(evtpLinePage));
+    }
     @RequestMapping("/list")
     public CommonResult getPage() {
         Wrapper<EvtpLine> evtpLineWrapper = new EntityWrapper<EvtpLine>();
