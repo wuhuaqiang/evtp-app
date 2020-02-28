@@ -1,8 +1,8 @@
-# springcloud-app
+# evtp-app
 
 ## 系统介绍
 
-- springcloud-app 是J2EE集群分布式基础开发平台，技术栈包括：springcloud，eureka，zuul，ribbon，feign，config，bus、hystrix，turbine，zipkin，MyBatis、springsecurity-oauth、redis，swagger，lombok，业务模块包括：用户管理，角色管理、权限管理，字典管理。
+- evtp-app 是J2EE集群分布式基础开发平台，技术栈包括：springcloud，eureka，zuul，ribbon，feign，config，bus、hystrix，turbine，zipkin，MyBatis、springsecurity-oauth、redis，swagger，lombok，业务模块包括：用户管理，角色管理、权限管理，字典管理。
 ## 核心流程概要
 
 - 用户->nginx->HTML->ZUUL(路由中心)->eureka(注册中心)->认证服务->资源服务->->REDIS/MYSQL
@@ -43,17 +43,13 @@
 - 2.安装nginx配置参考nginx.txt
 - 3.启动redis
 - 4.启动rabbitmq
-- 5.启动注册中心springcloud-app-eureka 访问端口1001
-- 6.启动配置中心springcloud-app-config
-- 7.将https://gitee.com/vmaps/app-ui放入springcloud-app-zuul\src\main\resources\static\html 更改对应include.js
-- 8.启动路由中心springcloud-app-zuul
-- 9.启动服务中心springcloud-app-system
-- 10.启动调度中心springcloud-app-schedule
-- 11.启动断路器监控汇总springcloud-app-turbine 访问端口8989
-- 12.启动断路器监控springcloud-app-hystrix 访问端口1301/hystrix
-- 13.启动链路追踪springcloud-app-zipkin 访问端口9411
-- 14.启动springcloud-app-zuul访问端口/html/login.html
-
-## qq交流群
-
-- 74745979
+- 5.启动注册中心evtp-app-eureka 访问端口1001
+- 6.启动配置中心evtp-app-config
+- 7.将https://gitee.com/vmaps/app-ui放入evtp-app-zuul\src\main\resources\static\html 更改对应include.js
+- 8.启动路由中心evtp-app-zuul
+- 9.启动服务中心evtp-app-system
+- 10.启动调度中心evtp-app-schedule
+- 11.启动断路器监控汇总evtp-app-turbine 访问端口8989
+- 12.启动断路器监控evtp-app-hystrix 访问端口1301/hystrix
+- 13.启动链路追踪evtp-app-zipkin 访问端口9411
+- 14.启动evtp-app-zuul访问端口/html/login.html
