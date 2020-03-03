@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhdl.dao.TTransactionDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hhdl.model.TTransaction">
+        <id column="tx_id" property="txId"/>
+        <result column="block_number" property="blockNumber"/>
+        <result column="tx_time" property="txTime"/>
+        <result column="tx_from" property="txFrom"/>
+        <result column="tx_to" property="txTo"/>
+        <result column="tx_value" property="txValue"/>
+        <result column="tx_power" property="txPower"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        tx_id
+        AS
+        txId
+        ,
+        block_number
+        AS
+        blockNumber,
+        tx_time
+        AS
+        txTime,
+        tx_from
+        AS
+        txFrom,
+        tx_to
+        AS
+        txTo,
+        tx_value
+        AS
+        txValue,
+        tx_power
+        AS
+        txPower
+    </sql>
+
+</mapper>

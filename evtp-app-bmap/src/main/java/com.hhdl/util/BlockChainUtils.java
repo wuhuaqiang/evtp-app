@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BlockChainUtils {
-    private static final String BlockChainBaseUrl = "http://10.168.1.245:8088/api/";
+    private static final String BlockChainBaseUrl = "http://10.168.1.245:8089/api/";
     private static final String InvokeUrl = "chaincode/invoke";
     private static final String QueryUrl = "chaincode/query";
 

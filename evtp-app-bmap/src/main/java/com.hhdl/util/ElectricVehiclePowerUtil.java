@@ -18,7 +18,7 @@ public class ElectricVehiclePowerUtil {
         param.put("n1", String.valueOf(currPower));//时间
         param.put("n2", String.valueOf(randomNumber));
         param.put("n3", userId);
-        HttpClientResult httpClientResult = HttpClientUtils.doGet("http://10.168.1.151:8000/chargeTest", param);
+        HttpClientResult httpClientResult = HttpClientUtils.doGet("http://10.168.1.213:9001/chargeTest", param);
         JSONObject jsonObject = JSONObject.parseObject(httpClientResult.getContent());
         Map<String, Object> stringObjectMap = MyBeanUtils.bean2map(jsonObject);
         Map<String, String> innerMap = (Map<String, String>) stringObjectMap.get("innerMap");
@@ -45,7 +45,7 @@ public class ElectricVehiclePowerUtil {
         param.put("n3", String.valueOf(totalTime / 60000));
         param.put("n4", String.valueOf(totalPoints));
         param.put("n5", userId);
-        HttpClientResult httpClientResult = HttpClientUtils.doGet("http://10.168.1.151:8000/dischargeTest", param);
+        HttpClientResult httpClientResult = HttpClientUtils.doGet("http://10.168.1.213:9001/dischargeTest", param);
         JSONObject jsonObject = JSONObject.parseObject(httpClientResult.getContent());
         return result;
     }
@@ -60,7 +60,7 @@ public class ElectricVehiclePowerUtil {
         param.put("pmin", offer.getpMin().toString());
         param.put("soc", offer.getSoc().toString());
         param.put("userrole", offer.getUserRole());
-        HttpClientResult httpClientResult = HttpClientUtils.doPost("http://10.168.1.151:8000/mock/quote/", param);
+        HttpClientResult httpClientResult = HttpClientUtils.doPost("http://10.168.1.213:9001/mock/quote/", param);
         JSONObject jsonObject = JSONObject.parseObject(httpClientResult.getContent());
         return result;
     }

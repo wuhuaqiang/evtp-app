@@ -2,6 +2,8 @@ package com.hhdl.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.hhdl.common.model.CommonResult;
+import com.hhdl.common.model.Offer;
+import com.hhdl.common.util.UUIDKey;
 import com.hhdl.entity.HttpClientResult;
 import com.hhdl.mybeanutils.MyBeanUtils;
 
@@ -12,14 +14,15 @@ import java.util.Map;
 
 public class TestUtil {
     public static void main(String[] args) throws Exception {
-        List<String> list = new ArrayList<>();
-        list.add("sadasdl");
-        list.add("asdasd");
-        list.add("asdsad");
-        list.add("qew");
-        list.add("qwvzdx");
-        String s = JSONObject.toJSONString(list);
-        System.out.println(s);
+//        List<String> list = new ArrayList<>();
+//        list.add("sadasdl");
+//        list.add("asdasd");
+//        list.add("asdsad");
+//        list.add("qew");
+//        list.add("qwvzdx");
+//        String s = JSONObject.toJSONString(list);
+//        System.out.println(s);
+        Offer();
 //        Map<String, String> chargingInfo = getChargingInfo(3.85, 24.0, 5.0);
 //        System.out.println(chargingInfo);
 //        Map<String, String> params = new HashMap<>();
@@ -38,7 +41,7 @@ public class TestUtil {
         param.put("n1", String.valueOf(currPower));//时间
         param.put("n2", String.valueOf(randomNumber));
         System.out.println(param);
-        HttpClientResult httpClientResult = HttpClientUtils.doGet("http://10.168.1.151:8000/getSoc", param);
+        HttpClientResult httpClientResult = HttpClientUtils.doGet("http://10.168.1.213:9001/getSoc", param);
         JSONObject jsonObject = JSONObject.parseObject(httpClientResult.getContent());
         Map<String, Object> stringObjectMap = MyBeanUtils.bean2map(jsonObject);
         Map<String, String> innerMap = (Map<String, String>) stringObjectMap.get("innerMap");
@@ -49,5 +52,21 @@ public class TestUtil {
         result.put("endPower", String.valueOf(ArithUtil.add(Double.valueOf(realSOCChange), currPower)));
         result.put("finalPay", finalPay);
         return result;
+    }
+
+    private static void Offer() throws Exception {
+        Offer offer = new Offer();
+        offer.setUserId(UUIDKey.getKey());
+        offer.setUserRole("charge");
+        offer.setSoc(Match.getRandomNumber(10, 20));
+        offer.setpMax(Match.getRandomNumber(0.5, 0.7));
+        offer.setpMin(Match.getRandomNumber(0.2, 0.3));
+        try {
+            Map<String, String> quote = ElectricVehiclePowerUtil.quote(offer);
+            System.out.println(quote.keySet());
+        } catch (
+                Exception e) {
+            e.printStackTrace();
+        }
     }
 }

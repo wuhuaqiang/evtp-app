@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhdl.dao.EvtpPointsDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hhdl.model.EvtpPoints">
+        <result column="id" property="id"/>
+        <result column="address" property="address"/>
+        <result column="lat" property="lat"/>
+        <result column="lng" property="lng"/>
+        <result column="title" property="title"/>
+        <result column="type" property="type"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        ,
+        address,
+        lat,
+        lng,
+        title,
+        type,
+        remark
+    </sql>
+    <delete id="delAll">
+        delete
+        from evtp_points
+    </delete>
+
+</mapper>

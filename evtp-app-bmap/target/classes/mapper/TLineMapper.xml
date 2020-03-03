@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhdl.dao.TLineDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hhdl.model.TLine">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="start_point" property="startPoint"/>
+        <result column="end_point" property="endPoint"/>
+        <result column="start_point_val" property="startPointVal"/>
+        <result column="end_point_val" property="endPointVal"/>
+        <result column="end_time" property="endTime"/>
+        <result column="start_time" property="startTime"/>
+        <result column="ower_id" property="owerId"/>
+        <result column="sort" property="sort"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, start_point AS startPoint, end_point AS endPoint, start_point_val AS startPointVal, end_point_val AS endPointVal, end_time AS endTime, start_time AS startTime, ower_id AS owerId, sort, remark
+    </sql>
+    <select id="selectLineByUserId" parameterType="string"
+            resultMap="BaseResultMap">
+        SELECT *
+        <!--<include refid="Base_Column_List"/>-->
+        FROM t_line
+        where ower_id =#{userId} ORDER BY sort
+    </select>
+
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhdl.dao.EvtpLinePointsDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.hhdl.model.EvtpLinePoints">
+        <result column="id" property="id" />
+        <result column="lat" property="lat" />
+        <result column="lng" property="lng" />
+        <result column="type" property="type" />
+        <result column="sort" property="sort" />
+        <result column="remark" property="remark" />
+        <result column="line_id" property="lineId" />
+        <result column="name" property="name" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, lat, lng, type, sort, remark, line_id AS lineId, name
+    </sql>
+    <delete id="delAll">
+        TRUNCATE evtp_line_points
+    </delete>
+
+</mapper>
