@@ -29,9 +29,11 @@ public class EvtpLineController {
     @Autowired
     private EvtpLineService evtpLineService;
     @RequestMapping("/page")
-    public CommonResult page(@RequestParam int page, int limit) {
+    public CommonResult page(@RequestParam int page, int limit, String name) {
         Page<EvtpLine> evtpLinePage = new Page<>(page, limit);
-        return CommonResult.success(evtpLineService.selectPage(evtpLinePage));
+        Wrapper<EvtpLine> evtpLineWrapper = new EntityWrapper<EvtpLine>();
+        evtpLineWrapper.like("name",name);
+        return CommonResult.success(evtpLineService.selectPage(evtpLinePage,evtpLineWrapper));
     }
     @RequestMapping("/list")
     public CommonResult getPage() {
