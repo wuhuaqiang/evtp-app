@@ -37,8 +37,13 @@ public class EvtpActionController {
 
     @RequestMapping("/acton")
     public CommonResult acton() throws Exception {
-        evtpActionService.acton();
-        return CommonResult.success("成功");
+        int ret = evtpActionService.acton();
+        if (ret == 0) {
+            return CommonResult.success("成功");
+        } else {
+            return CommonResult.failed("已经开启模拟");
+        }
+
     }
 }
 

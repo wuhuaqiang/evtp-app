@@ -53,86 +53,87 @@ public class EvtpActionServiceImpl implements EvtpActionService {
     private Timer timerCreateTask = null;
 
     @Override
-    public void acton() throws ParseException {
-        timerWebPoint = new Timer();
-        timerCheckCharging = new Timer();
-        timerCheckOtherTask = new Timer();
-        timerCreateTask = new Timer();
-        List<MapLine> mapLines = new ArrayList<>();
-        redisCacheService.delAllKey("evtp");
-        Wrapper<EvtpChargingStation> evtpChargingStationWrapper = new EntityWrapper<EvtpChargingStation>();
-        List<EvtpChargingStation> evtpChargingStations = evtpChargingStationService.selectList(evtpChargingStationWrapper);
-        redisCacheService.lSet("evtp:evtpChargingStations", evtpChargingStations);
-        Wrapper<EvtpLine> evtpLineWrapper = new EntityWrapper<EvtpLine>();
-        List<EvtpLine> evtpLines = evtpLineService.selectList(evtpLineWrapper);
-        Wrapper<EvtpSimulationParameters> parametersWrapper = new EntityWrapper<>();
-        List<EvtpSimulationParameters> evtpSimulationParameters = evtpSimulationParametersService.selectList(parametersWrapper);
-        EvtpSimulationParameters parameters = evtpSimulationParameters.get(0);
-        redisCacheService.set("evtp:evtpSimulationParameter",parameters);
-        double powerConsumptionPerKilometer = Double.valueOf(parameters.getPowerConsumptionPerKilometer());
-        for (EvtpLine evtpLine : evtpLines) {
-            MapLine mapLine = new MapLine();
-            Queue<MapPoint> mapPointQueue = new LinkedBlockingDeque<>();
-            List<MapPoint> mapPoints = new ArrayList<>();
-            Wrapper<EvtpLinePoints> evtpLinePointsWrapper = new EntityWrapper<EvtpLinePoints>();
-            evtpLinePointsWrapper.where("line_id={0}", evtpLine.getId()).orderBy("sort", true);
-            List<EvtpLinePoints> evtpLinePoints = evtpLinePointsService.selectList(evtpLinePointsWrapper);
-            for (EvtpLinePoints linePoints : evtpLinePoints) {
-                MapPoint mapPoint = new MapPoint();
-                mapPoint.setLat(Double.valueOf(linePoints.getLat()));
-                mapPoint.setLng(Double.valueOf(linePoints.getLng()));
-                mapPoints.add(mapPoint);
-            }
-            List<MapPoint> detailPints = PointsUtil.getDetailPints(mapPoints, 0.0001, 0.0001);
-            mapPointQueue.addAll(detailPints);
-            int size = detailPints.size();
-            Integer runTime = evtpLine.getRunTime();
-            double distance = evtpLine.getDistance();
-            double totlePowerConsumption = ArithUtil.mul(powerConsumptionPerKilometer, distance);
-            double unitPowerConsumption = ArithUtil.div(totlePowerConsumption, (size - 1));
-            int delay = runTime % (size - 1);
-            int period = runTime / (size - 1);
-            String userId = evtpLine.getOwerId();
-            EvtpUser evtpUser = evtpUserService.selectById(userId);
-            String evId = evtpUser.getEvId();
-            EvtpElectricVehicle evtpElectricVehicle = evtpElectricVehicleService.selectById(evId);
-            mapLine.setMapPoints(mapPointQueue);
-            mapLine.setEvtpLine(evtpLine);
-            evtpElectricVehicle.setRunState("1");
-            mapLine.setEvtpElectricVehicle(evtpElectricVehicle);
-            MapPointTask mapPointTask = new MapPointTask();
-            mapPointTask.setMapLine(mapLine);
-            mapPointTask.setWebSocket(webSocket);
-            mapPointTask.setEvtpLineService(evtpLineService);
-            mapPointTask.setEvtpElectricVehicleService(evtpElectricVehicleService);
-            String startTime = evtpLine.getStartTime();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            long time = sdf.parse(startTime).getTime();
-            long l = System.currentTimeMillis();
-            System.err.println("***********************************************");
-            System.out.println(time - l);
-            System.out.println(size);
-            System.err.println("***********************************************");
-            mapPointTask.setMapQueue(webPointsTask.getMapQueue());
-            Timer timer = new Timer();
-            mapPointTask.setTimer(timer);
-            mapPointTask.setDistance(distance);
-            mapPointTask.setUnitPowerConsumption(unitPowerConsumption);
-            mapPointTask.setRedisCacheService(redisCacheService);
+    public int acton() throws ParseException {
+        if (timerWebPoint == null) {
+            timerWebPoint = new Timer();
+            timerCheckCharging = new Timer();
+            timerCheckOtherTask = new Timer();
+            timerCreateTask = new Timer();
+            List<MapLine> mapLines = new ArrayList<>();
+            redisCacheService.delAllKey("evtp");
+            Wrapper<EvtpChargingStation> evtpChargingStationWrapper = new EntityWrapper<EvtpChargingStation>();
+            List<EvtpChargingStation> evtpChargingStations = evtpChargingStationService.selectList(evtpChargingStationWrapper);
+            redisCacheService.lSet("evtp:evtpChargingStations", evtpChargingStations);
+            Wrapper<EvtpLine> evtpLineWrapper = new EntityWrapper<EvtpLine>();
+            List<EvtpLine> evtpLines = evtpLineService.selectList(evtpLineWrapper);
+            Wrapper<EvtpSimulationParameters> parametersWrapper = new EntityWrapper<>();
+            List<EvtpSimulationParameters> evtpSimulationParameters = evtpSimulationParametersService.selectList(parametersWrapper);
+            EvtpSimulationParameters parameters = evtpSimulationParameters.get(0);
+            redisCacheService.set("evtp:evtpSimulationParameter", parameters);
+            double powerConsumptionPerKilometer = Double.valueOf(parameters.getPowerConsumptionPerKilometer());
+            for (EvtpLine evtpLine : evtpLines) {
+                MapLine mapLine = new MapLine();
+                Queue<MapPoint> mapPointQueue = new LinkedBlockingDeque<>();
+                List<MapPoint> mapPoints = new ArrayList<>();
+                Wrapper<EvtpLinePoints> evtpLinePointsWrapper = new EntityWrapper<EvtpLinePoints>();
+                evtpLinePointsWrapper.where("line_id={0}", evtpLine.getId()).orderBy("sort", true);
+                List<EvtpLinePoints> evtpLinePoints = evtpLinePointsService.selectList(evtpLinePointsWrapper);
+                for (EvtpLinePoints linePoints : evtpLinePoints) {
+                    MapPoint mapPoint = new MapPoint();
+                    mapPoint.setLat(Double.valueOf(linePoints.getLat()));
+                    mapPoint.setLng(Double.valueOf(linePoints.getLng()));
+                    mapPoints.add(mapPoint);
+                }
+                List<MapPoint> detailPints = PointsUtil.getDetailPints(mapPoints, 0.0001, 0.0001);
+                mapPointQueue.addAll(detailPints);
+                int size = detailPints.size();
+                Integer runTime = evtpLine.getRunTime();
+                double distance = evtpLine.getDistance();
+                double totlePowerConsumption = ArithUtil.mul(powerConsumptionPerKilometer, distance);
+                double unitPowerConsumption = ArithUtil.div(totlePowerConsumption, (size - 1));
+                int delay = runTime % (size - 1);
+                int period = runTime / (size - 1);
+                String userId = evtpLine.getOwerId();
+                EvtpUser evtpUser = evtpUserService.selectById(userId);
+                String evId = evtpUser.getEvId();
+                EvtpElectricVehicle evtpElectricVehicle = evtpElectricVehicleService.selectById(evId);
+                mapLine.setMapPoints(mapPointQueue);
+                mapLine.setEvtpLine(evtpLine);
+                evtpElectricVehicle.setRunState("1");
+                mapLine.setEvtpElectricVehicle(evtpElectricVehicle);
+                MapPointTask mapPointTask = new MapPointTask();
+                mapPointTask.setMapLine(mapLine);
+                mapPointTask.setWebSocket(webSocket);
+                mapPointTask.setEvtpLineService(evtpLineService);
+                mapPointTask.setEvtpElectricVehicleService(evtpElectricVehicleService);
+                String startTime = evtpLine.getStartTime();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                long time = sdf.parse(startTime).getTime();
+                long l = System.currentTimeMillis();
+                System.err.println("***********************************************");
+                System.out.println(time - l);
+                System.out.println(size);
+                System.err.println("***********************************************");
+                mapPointTask.setMapQueue(webPointsTask.getMapQueue());
+                Timer timer = new Timer();
+                mapPointTask.setTimer(timer);
+                mapPointTask.setDistance(distance);
+                mapPointTask.setUnitPowerConsumption(unitPowerConsumption);
+                mapPointTask.setRedisCacheService(redisCacheService);
 //            timer.schedule(mapPointTask, (time - l) + delay, period);
-            try {
-                ElectricVehiclePowerUtil.setDisChargingInfo(evtpElectricVehicle.getCurrentPower(),evtpLine.getDistance(),evtpLine.getRunTime(),size,evtpLine.getOwerId());
-                timer.schedule(mapPointTask, (time - l) + delay, 10);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                try {
+                    ElectricVehiclePowerUtil.setDisChargingInfo(evtpElectricVehicle.getCurrentPower(), evtpLine.getDistance(), evtpLine.getRunTime(), size, evtpLine.getOwerId());
+                    timer.schedule(mapPointTask, (time - l) + delay, 10);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-        }
-        createTask.setMapQueue(webPointsTask.getMapQueue());
-        timerWebPoint.schedule(webPointsTask, 0, 100);
-        timerCheckCharging.schedule(checkCharging, 0, 30000);
-        timerCheckOtherTask.schedule(checkOtherTask, 0, 30000);
-        timerCreateTask.schedule(createTask,120000,120000);
+            }
+            createTask.setMapQueue(webPointsTask.getMapQueue());
+            timerWebPoint.schedule(webPointsTask, 0, 100);
+            timerCheckCharging.schedule(checkCharging, 0, 30000);
+            timerCheckOtherTask.schedule(checkOtherTask, 0, 30000);
+            timerCreateTask.schedule(createTask, 120000, 120000);
 /*        for (EvtpLine evtpLine : evtpLines) {
 //            String userId = evtpLine.getOwerId();
 //            EvtpUser evtpUser = evtpUserService.selectById(userId);
@@ -181,5 +182,9 @@ public class EvtpActionServiceImpl implements EvtpActionService {
                 }
             }
         }, 1000, 100);*/
+            return 0;
+        } else {
+            return 1;
+        }
     }
 }
