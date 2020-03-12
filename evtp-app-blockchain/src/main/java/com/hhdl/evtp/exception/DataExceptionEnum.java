@@ -1,10 +1,6 @@
 package com.hhdl.evtp.exception;
 
-/**
- * Created with IntelliJ IDEA
- * User : jono
- * Date : 2017/11/1
- */
+
 public enum DataExceptionEnum {
     PARAMS_ERROR                    ("20001","参数错误"),
     MANUFACTURER_IS_NOT_EXIST       ("20002","厂商不存在"),
