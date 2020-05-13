@@ -210,7 +210,6 @@ public class EvtpActionServiceImpl implements EvtpActionService {
             createTask.cancel();
             mapContinueTask.cancel();
             mapGoChargingTask.cancel();
-            mapPointTask.cancel();
             timerWebPoint.cancel();
             timerWebPoint.purge();
             timerCheckCharging.cancel();
