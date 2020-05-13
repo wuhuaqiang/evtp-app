@@ -72,7 +72,7 @@ public class EvtpActionServiceImpl implements EvtpActionService {
             timerCreateTask = new Timer();
             webPointsTask = new WebPointsTask();
             webPointsTask.setWebSocket(webSocket);
-            mapPointTask = new MapPointTask();
+//            mapPointTask = new MapPointTask();
             mapContinueTask = getMapContinueTask();
             mapGoChargingTask = getMapGoChargingTask();
             checkOtherTask = getCheckOtherTask();
@@ -120,7 +120,7 @@ public class EvtpActionServiceImpl implements EvtpActionService {
                 mapLine.setEvtpLine(evtpLine);
                 evtpElectricVehicle.setRunState("1");
                 mapLine.setEvtpElectricVehicle(evtpElectricVehicle);
-                mapPointTask = new MapPointTask();
+                MapPointTask mapPointTask = new MapPointTask();
                 mapPointTask.setMapLine(mapLine);
                 mapPointTask.setWebSocket(webSocket);
                 mapPointTask.setEvtpLineService(evtpLineService);
@@ -260,6 +260,7 @@ public class EvtpActionServiceImpl implements EvtpActionService {
         mapContinueTask.setWebSocket(webSocket);
         return mapContinueTask;
     }
+
     private CreateTask getCreateTask() {
         CreateTask createTask = new CreateTask();
         createTask.setEvtpElectricVehicleService(evtpElectricVehicleService);
@@ -270,6 +271,7 @@ public class EvtpActionServiceImpl implements EvtpActionService {
         createTask.setEvtpUserService(evtpUserService);
         return createTask;
     }
+
     private CheckCharging getCheckCharging() {
         CheckCharging checkCharging = new CheckCharging();
         checkCharging.setEvtpElectricVehicleService(evtpElectricVehicleService);
