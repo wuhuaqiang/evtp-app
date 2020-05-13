@@ -45,6 +45,7 @@ public class ElectricVehiclePowerUtil {
         param.put("n3", String.valueOf(totalTime / 60000));
         param.put("n4", String.valueOf(totalPoints));
         param.put("n5", userId);
+        System.err.println(param.toString());
         HttpClientResult httpClientResult = HttpClientUtils.doGet("http://10.168.1.213:9001/dischargeTest", param);
         JSONObject jsonObject = JSONObject.parseObject(httpClientResult.getContent());
         return result;

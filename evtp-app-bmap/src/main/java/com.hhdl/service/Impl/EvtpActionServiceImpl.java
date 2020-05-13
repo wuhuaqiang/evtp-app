@@ -40,17 +40,28 @@ public class EvtpActionServiceImpl implements EvtpActionService {
     @Autowired
     private RedisCacheService redisCacheService;
     @Autowired
-    private WebPointsTask webPointsTask;
+    private EvtpTransactionService evtpTransactionService;
     @Autowired
-    private CheckCharging checkCharging;
-    @Autowired
-    private CheckOtherTask checkOtherTask;
-    @Autowired
-    private CreateTask createTask;
+    private EvtpPointsService evtpPointsService;
+    //    @Autowired
+//    private WebPointsTask webPointsTask;
+//    @Autowired
+//    private CheckCharging checkCharging;
+//    @Autowired
+//    private CheckOtherTask checkOtherTask;
+//    @Autowired
+//    private CreateTask createTask;
     private Timer timerWebPoint = null;
     private Timer timerCheckCharging = null;
     private Timer timerCheckOtherTask = null;
     private Timer timerCreateTask = null;
+    private MapPointTask mapPointTask = null;
+    private WebPointsTask webPointsTask = null;
+    private CheckCharging checkCharging = null;
+    private CheckOtherTask checkOtherTask = null;
+    private CreateTask createTask = null;
+    private MapContinueTask mapContinueTask = null;
+    private MapGoChargingTask mapGoChargingTask = null;
 
     @Override
     public int acton() throws ParseException {
@@ -59,6 +70,14 @@ public class EvtpActionServiceImpl implements EvtpActionService {
             timerCheckCharging = new Timer();
             timerCheckOtherTask = new Timer();
             timerCreateTask = new Timer();
+            webPointsTask = new WebPointsTask();
+            webPointsTask.setWebSocket(webSocket);
+            mapPointTask = new MapPointTask();
+            mapContinueTask = getMapContinueTask();
+            mapGoChargingTask = getMapGoChargingTask();
+            checkOtherTask = getCheckOtherTask();
+            createTask = getCreateTask();
+            checkCharging = getCheckCharging();
             List<MapLine> mapLines = new ArrayList<>();
             redisCacheService.delAllKey("evtp");
             Wrapper<EvtpChargingStation> evtpChargingStationWrapper = new EntityWrapper<EvtpChargingStation>();
@@ -101,7 +120,7 @@ public class EvtpActionServiceImpl implements EvtpActionService {
                 mapLine.setEvtpLine(evtpLine);
                 evtpElectricVehicle.setRunState("1");
                 mapLine.setEvtpElectricVehicle(evtpElectricVehicle);
-                MapPointTask mapPointTask = new MapPointTask();
+                mapPointTask = new MapPointTask();
                 mapPointTask.setMapLine(mapLine);
                 mapPointTask.setWebSocket(webSocket);
                 mapPointTask.setEvtpLineService(evtpLineService);
@@ -114,8 +133,8 @@ public class EvtpActionServiceImpl implements EvtpActionService {
                 System.out.println(time - l);
                 System.out.println(size);
                 System.err.println("***********************************************");
-                mapPointTask.setMapQueue(webPointsTask.getMapQueue());
                 Timer timer = new Timer();
+                mapPointTask.setMapQueue(webPointsTask.getMapQueue());
                 mapPointTask.setTimer(timer);
                 mapPointTask.setDistance(distance);
                 mapPointTask.setUnitPowerConsumption(unitPowerConsumption);
@@ -123,7 +142,7 @@ public class EvtpActionServiceImpl implements EvtpActionService {
 //            timer.schedule(mapPointTask, (time - l) + delay, period);
                 try {
                     ElectricVehiclePowerUtil.setDisChargingInfo(evtpElectricVehicle.getCurrentPower(), evtpLine.getDistance(), evtpLine.getRunTime(), size, evtpLine.getOwerId());
-                    timer.schedule(mapPointTask, (time - l) + delay, 10);
+                    timer.schedule(mapPointTask, (time - l) + delay, 100);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -184,7 +203,85 @@ public class EvtpActionServiceImpl implements EvtpActionService {
         }, 1000, 100);*/
             return 0;
         } else {
+            mapPointTask.cancel();
+            webPointsTask.cancel();
+            checkCharging.cancel();
+            checkOtherTask.cancel();
+            createTask.cancel();
+            mapContinueTask.cancel();
+            mapGoChargingTask.cancel();
+            mapPointTask.cancel();
+            timerWebPoint.cancel();
+            timerWebPoint.purge();
+            timerCheckCharging.cancel();
+            timerCheckCharging.purge();
+            timerCheckOtherTask.cancel();
+            timerCheckOtherTask.purge();
+            timerCreateTask.cancel();
+            timerCreateTask.purge();
+            timerWebPoint = null;
+            timerCheckCharging = null;
+            timerCheckOtherTask = null;
+            timerCreateTask = null;
             return 1;
         }
+    }
+
+    private CheckOtherTask getCheckOtherTask() {
+        CheckOtherTask checkOtherTask = new CheckOtherTask();
+        checkOtherTask.setEvtpElectricVehicleService(evtpElectricVehicleService);
+        checkOtherTask.setEvtpLineService(evtpLineService);
+        checkOtherTask.setEvtpUserService(evtpUserService);
+        checkOtherTask.setRedisCacheService(redisCacheService);
+        checkOtherTask.setEvtpSimulationParametersService(evtpSimulationParametersService);
+        checkOtherTask.setWebSocket(webSocket);
+        checkOtherTask.setMapGoChargingTask(mapGoChargingTask);
+        checkOtherTask.setWebPointsTask(webPointsTask);
+        checkOtherTask.setEvtpLinePointsService(evtpLinePointsService);
+        return checkOtherTask;
+    }
+
+    private MapGoChargingTask getMapGoChargingTask() {
+        MapGoChargingTask mapGoChargingTask = new MapGoChargingTask();
+        mapGoChargingTask.setEvtpElectricVehicleService(evtpElectricVehicleService);
+        mapGoChargingTask.setEvtpLineService(evtpLineService);
+        mapGoChargingTask.setRedisCacheService(redisCacheService);
+        mapGoChargingTask.setWebSocket(webSocket);
+        mapGoChargingTask.setMapContinueTask(mapContinueTask);
+        mapGoChargingTask.setEvtpTransactionService(evtpTransactionService);
+        return mapGoChargingTask;
+    }
+
+    private MapContinueTask getMapContinueTask() {
+        MapContinueTask mapContinueTask = new MapContinueTask();
+        mapContinueTask.setEvtpElectricVehicleService(evtpElectricVehicleService);
+        mapContinueTask.setEvtpLineService(evtpLineService);
+        mapContinueTask.setRedisCacheService(redisCacheService);
+        mapContinueTask.setWebSocket(webSocket);
+        return mapContinueTask;
+    }
+    private CreateTask getCreateTask() {
+        CreateTask createTask = new CreateTask();
+        createTask.setEvtpElectricVehicleService(evtpElectricVehicleService);
+        createTask.setEvtpLineService(evtpLineService);
+        createTask.setRedisCacheService(redisCacheService);
+        createTask.setWebSocket(webSocket);
+        createTask.setEvtpPointsService(evtpPointsService);
+        createTask.setEvtpUserService(evtpUserService);
+        return createTask;
+    }
+    private CheckCharging getCheckCharging() {
+        CheckCharging checkCharging = new CheckCharging();
+        checkCharging.setEvtpElectricVehicleService(evtpElectricVehicleService);
+        checkCharging.setEvtpLineService(evtpLineService);
+        checkCharging.setRedisCacheService(redisCacheService);
+        checkCharging.setWebSocket(webSocket);
+        checkCharging.setEvtpLinePointsService(evtpLinePointsService);
+        checkCharging.setEvtpUserService(evtpUserService);
+        checkCharging.setEvtpSimulationParametersService(evtpSimulationParametersService);
+        checkCharging.setMapGoChargingTask(mapGoChargingTask);
+        checkCharging.setWebPointsTask(webPointsTask);
+        checkCharging.setEvtpTransactionService(evtpTransactionService);
+        return checkCharging;
     }
 }

@@ -38,6 +38,78 @@ public class CheckOtherTask extends TimerTask {
     @Autowired
     private RedisCacheService redisCacheService;
 
+    public WebSocket getWebSocket() {
+        return webSocket;
+    }
+
+    public void setWebSocket(WebSocket webSocket) {
+        this.webSocket = webSocket;
+    }
+
+    public EvtpElectricVehicleService getEvtpElectricVehicleService() {
+        return evtpElectricVehicleService;
+    }
+
+    public void setEvtpElectricVehicleService(EvtpElectricVehicleService evtpElectricVehicleService) {
+        this.evtpElectricVehicleService = evtpElectricVehicleService;
+    }
+
+    public EvtpLineService getEvtpLineService() {
+        return evtpLineService;
+    }
+
+    public void setEvtpLineService(EvtpLineService evtpLineService) {
+        this.evtpLineService = evtpLineService;
+    }
+
+    public EvtpSimulationParametersService getEvtpSimulationParametersService() {
+        return evtpSimulationParametersService;
+    }
+
+    public void setEvtpSimulationParametersService(EvtpSimulationParametersService evtpSimulationParametersService) {
+        this.evtpSimulationParametersService = evtpSimulationParametersService;
+    }
+
+    public MapGoChargingTask getMapGoChargingTask() {
+        return mapGoChargingTask;
+    }
+
+    public void setMapGoChargingTask(MapGoChargingTask mapGoChargingTask) {
+        this.mapGoChargingTask = mapGoChargingTask;
+    }
+
+    public WebPointsTask getWebPointsTask() {
+        return webPointsTask;
+    }
+
+    public void setWebPointsTask(WebPointsTask webPointsTask) {
+        this.webPointsTask = webPointsTask;
+    }
+
+    public EvtpLinePointsService getEvtpLinePointsService() {
+        return evtpLinePointsService;
+    }
+
+    public void setEvtpLinePointsService(EvtpLinePointsService evtpLinePointsService) {
+        this.evtpLinePointsService = evtpLinePointsService;
+    }
+
+    public EvtpUserService getEvtpUserService() {
+        return evtpUserService;
+    }
+
+    public void setEvtpUserService(EvtpUserService evtpUserService) {
+        this.evtpUserService = evtpUserService;
+    }
+
+    public RedisCacheService getRedisCacheService() {
+        return redisCacheService;
+    }
+
+    public void setRedisCacheService(RedisCacheService redisCacheService) {
+        this.redisCacheService = redisCacheService;
+    }
+
     @Override
     public void run() {
         Wrapper<EvtpLine> evtpLineWrapper = new EntityWrapper<EvtpLine>();

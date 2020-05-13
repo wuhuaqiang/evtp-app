@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@EnableScheduling
+//@EnableScheduling
 @Service
 public class EvMatchImpl implements EvMatch {
     @Autowired
