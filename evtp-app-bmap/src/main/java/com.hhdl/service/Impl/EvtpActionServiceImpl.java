@@ -152,7 +152,7 @@ public class EvtpActionServiceImpl implements EvtpActionService {
             timerWebPoint.schedule(webPointsTask, 0, 100);
             timerCheckCharging.schedule(checkCharging, 0, 30000);
             timerCheckOtherTask.schedule(checkOtherTask, 0, 30000);
-            timerCreateTask.schedule(createTask, 120000, 120000);
+            timerCreateTask.schedule(createTask, 240000, 120000);
 /*        for (EvtpLine evtpLine : evtpLines) {
 //            String userId = evtpLine.getOwerId();
 //            EvtpUser evtpUser = evtpUserService.selectById(userId);
